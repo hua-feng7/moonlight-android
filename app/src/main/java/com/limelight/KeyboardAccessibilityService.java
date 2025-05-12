@@ -26,7 +26,6 @@ public class KeyboardAccessibilityService extends AccessibilityService {
             KeyEvent.KEYCODE_HOME
     );
 
-    // 跟踪修饰键状态
     private boolean isAltPressed = false;
     private boolean isCtrlPressed = false;
     private boolean isShiftPressed = false;
@@ -50,7 +49,6 @@ public class KeyboardAccessibilityService extends AccessibilityService {
         if (action == KeyEvent.ACTION_DOWN) {
             Log.i("hh","KeyboardAccessibilityService press keyevent-->" + keyEvent);
 
-            // 更新修饰键状态
             switch (keyCode) {
                 case KeyEvent.KEYCODE_ALT_LEFT:
                 case KeyEvent.KEYCODE_ALT_RIGHT:
@@ -70,7 +68,6 @@ public class KeyboardAccessibilityService extends AccessibilityService {
                     break;
             }
         } else if (action == KeyEvent.ACTION_UP) {
-            // 重置修饰键状态
             switch (keyCode) {
                 case KeyEvent.KEYCODE_ALT_LEFT:
                 case KeyEvent.KEYCODE_ALT_RIGHT:
@@ -105,13 +102,12 @@ public class KeyboardAccessibilityService extends AccessibilityService {
 
             // 处理Alt+Tab组合键
             if (isAltPressed && keyCode == KeyEvent.KEYCODE_TAB) {
-                // 直接传递给PC，不让系统处理
                 if (action == KeyEvent.ACTION_DOWN) {
                     Game.instance.handleKeyDown(keyEvent);
-                    return true; // 消费事件，防止系统响应
+                    return true; 
                 } else if (action == KeyEvent.ACTION_UP) {
                     Game.instance.handleKeyUp(keyEvent);
-                    return true; // 消费事件，防止系统响应
+                    return true; 
                 }
             }
 
@@ -120,10 +116,10 @@ public class KeyboardAccessibilityService extends AccessibilityService {
             if ((isAltPressed || isCtrlPressed || isShiftPressed || isMetaPressed) && !isModifierKey) {
                 if (action == KeyEvent.ACTION_DOWN) {
                     Game.instance.handleKeyDown(keyEvent);
-                    return true; // 消费事件，防止系统响应
+                    return true; 
                 } else if (action == KeyEvent.ACTION_UP) {
                     Game.instance.handleKeyUp(keyEvent);
-                    return true; // 消费事件，防止系统响应
+                    return true; 
                 }
             }
 
